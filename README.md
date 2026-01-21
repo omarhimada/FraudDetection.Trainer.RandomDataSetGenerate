@@ -1,1 +1,1 @@
-Genereate realistic synthetic login events in order to train an ML model for fraud detection.
+Genereate realistic synthetic login events in order to train an ML model for fraud detection. Similar to Incubation, I'm going to add it to the pipeline and train fraud detection models along with my customer recommmendations, churn predictions, and segmentation.
