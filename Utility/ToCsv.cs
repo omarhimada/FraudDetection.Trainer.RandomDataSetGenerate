@@ -3,7 +3,6 @@ using System.Globalization;
 using static FraudDetection.Trainer.RandomDataSetGenerate.Constants;
 
 namespace FraudDetection.Trainer.RandomDataSetGenerate.Utility {
-
 	/// <summary>
 	/// Provides functionality to write a collection of login events to a CSV file in a standardized format.
 	/// The CSV is the expected input to train a Fraud Detection model.
@@ -12,7 +11,7 @@ namespace FraudDetection.Trainer.RandomDataSetGenerate.Utility {
 	/// such as timestamps, user information, authentication details, and risk metrics. All data is written with a header
 	/// row followed by one row per event. This class is intended for exporting login event data for analysis or archival
 	/// purposes.</remarks>
-	public static class CsvWriter {
+	public static class ToCsv {
 		public static void Write(string path, IReadOnlyList<LoginEvent> events) {
 			using StreamWriter sw = new(path, append: false);
 
@@ -75,14 +74,13 @@ namespace FraudDetection.Trainer.RandomDataSetGenerate.Utility {
 					Csv(e.City),
 					e.Latitude.ToString(_f6, CultureInfo.InvariantCulture),
 					e.Longitude.ToString(_f6, CultureInfo.InvariantCulture),
-					Csv(e.UserAgent),
-					Csv(e.DeviceId),
+					Csv(CompressionFunctions.HashStringToUintString(e.UserAgent)),
+					Csv(CompressionFunctions.HashStringToUintString(e.DeviceId)),
 					e.IsNewDevice ? _true : _false,
 					Csv(e.PolicyId),
 					e.StepUpRequired ? _true : _false,
 					Csv(e.MfaMethod),
-					Csv(e.MfaOutcome),
-					e.MfaPromptCount.ToString(CultureInfo.InvariantCulture),
+					Csv(CompressionFunctions.ConvertMFAOutcomeToUshort(e.MfaOutcome)),
 					Csv(e.Outcome),
 					Csv(e.FailureReason),
 					e.RiskScore.ToString(CultureInfo.InvariantCulture),

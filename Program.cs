@@ -60,7 +60,7 @@ namespace FraudDetection.Trainer.RandomDataSetGenerate {
 			ColorConsole.Teal($"{_elapsed}{_sw.Elapsed.TotalSeconds}{Environment.NewLine}");
 			ColorConsole.Teal(_writingToCsv);
 
-			CsvWriter.Write(outputPath, events);
+			ToCsv.Write(outputPath, events);
 
 			ColorConsole.Green($"{_csvLocation}");
 			ColorConsole.Pink($"{Path.GetFullPath(outputPath)}{Environment.NewLine}");
